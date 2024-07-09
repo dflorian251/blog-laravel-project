@@ -8,7 +8,7 @@
     <header class="mb-8">
         <h1 class="text-4xl font-bold text-gray-800 mb-4">{{ $post->title }}</h1>
         <div class="flex items-center space-x-4 text-gray-600">
-            <span>By <a href="#" class="text-blue-500 hover:underline">Author Name</a></span>
+            <span>By <a href="#" class="text-blue-500 hover:underline">{{ DB::table('users')->where('id', '=', $post->user_id)->value('name') }}</a></span>
             <span>&bull;</span>
             <span>{{ $post->created_at }}</span>
         </div>
@@ -16,7 +16,7 @@
 
     <!-- Post Image -->
     <div class="mb-8">
-        <img src="https://source.unsplash.com/random/800x400" alt="Post Image" class="w-full h-auto rounded-lg">
+        <img src="https://picsum.photos/800/400" alt="Post Image" class="w-full h-auto rounded-lg">
     </div>
 
     <!-- Post Content -->
