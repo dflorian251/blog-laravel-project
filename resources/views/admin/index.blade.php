@@ -13,7 +13,7 @@
         @endif
         <div class="mb-4">
             <div class="w-full">
-                <a href="{{ route('admin.create') }}" class="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-700">Create New Item</a>
+                <a href="{{ route('admin.create') }}" class="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-700">Create New Post</a>
             </div>
         </div>
         <hr class="my-4">

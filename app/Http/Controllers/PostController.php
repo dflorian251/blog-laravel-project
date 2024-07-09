@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Post;
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Access\Response;
 
 class PostController extends Controller
 {
@@ -59,6 +61,9 @@ class PostController extends Controller
     }
 
     public function adminDeletePost($id) {
+        if (! Gate::allows('delete-post', Auth::user())) {
+            abort(403);
+        }
         $post = Post::find($id);
         $post->delete();
         return redirect()->route('admin.index')->with('info', 'Post deleted.');

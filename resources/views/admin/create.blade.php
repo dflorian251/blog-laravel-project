@@ -3,7 +3,7 @@
 @section('content')
 <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
-        <h2 class="text-2xl font-bold mb-6">Create New Item</h2>
+        <h2 class="text-2xl font-bold mb-6">Create New Post</h2>
 
         @if ($errors->any())
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
