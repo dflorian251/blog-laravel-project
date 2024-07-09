@@ -9,11 +9,18 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Access\Response;
 
+
+
 class PostController extends Controller
 {
     public function getIndex() {
         $posts = Post::orderBy('created_at', 'desc')->paginate(2);
         return view('blog.index', ['posts' => $posts]);
+    }
+
+    public function getDashboard() {
+        $posts = Post::where('user_id', '=' ,Auth::user()->id) ->orderBy('created_at', 'desc')->get();
+        return view('dashboard', ['posts' => $posts]);
     }
 
     public function getPost($id) {
