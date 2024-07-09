@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -40,6 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/blog', [PostController::class, 'getIndex'])->name('blog.index');
 
     Route::get('/blog/{id}', [PostController::class, 'getPost'])->name('blog.post');
+
+    Route::get('/profile', [UserController::class, 'getUser'])->name('profile.edit');
 
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->name('verification.notice');
