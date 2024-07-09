@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Models\User;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,7 +24,9 @@ class AppServiceProvider extends ServiceProvider
     {
 
         Gate::define('delete-post', function(User $user) {
-            return $user->id === 0;
+            return $user->id === 0
+            ? Response::allow()
+            : Response::deny('You must be an administrator.');
         });
 
     }

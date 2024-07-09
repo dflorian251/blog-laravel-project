@@ -61,11 +61,13 @@ class PostController extends Controller
     }
 
     public function adminDeletePost($id) {
-        if (! Gate::allows('delete-post', Auth::user())) {
-            abort(403);
+        $response = Gate::inspect('delete-post', Auth::user());
+        if (! $response->allowed()) {
+            return view('others.error', ['message' => $response->message()]);
+        } else {
+            $post = Post::find($id);
+            $post->delete();
+            return redirect()->route('admin.index')->with('info', 'Post deleted.');
         }
-        $post = Post::find($id);
-        $post->delete();
-        return redirect()->route('admin.index')->with('info', 'Post deleted.');
     }
 }
