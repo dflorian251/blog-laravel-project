@@ -22,12 +22,22 @@ class PostController extends Controller
     }
 
     public function getAdminIndex() {
-        $posts = Post::orderBy('created_at', 'desc')->get();
-        return view('admin.index', ['posts' => $posts]);
+        $response = Gate::inspect('admin-portal');
+        if ($response->allowed()) {
+            $posts = Post::orderBy('created_at', 'desc')->get();
+            return view('admin.index', ['posts' => $posts]);
+        } else {
+            echo $response->message();
+        }
     }
 
     public function getAdminCreate() {
-        return view('admin.create');
+        $response = Gate::inspect('admin-portal');
+        if ($response->allowed()) {
+            return view('admin.create');
+        } else {
+            echo $response->message();
+        }
     }
 
     public function adminCreatePost(Request $request) {
@@ -62,7 +72,7 @@ class PostController extends Controller
     }
 
     public function adminDeletePost($id) {
-        $response = Gate::inspect('delete-post', Auth::user());
+        $response = Gate::inspect('admin-portal', Auth::user());
         if (! $response->allowed()) {
             return view('others.error', ['message' => $response->message()]);
         } else {

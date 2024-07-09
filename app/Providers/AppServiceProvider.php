@@ -22,12 +22,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
-        Gate::define('delete-post', function(User $user) {
+        Gate::define('admin-portal', function(User $user) {
             return $user->id === 0
             ? Response::allow()
             : Response::deny('You must be an administrator.');
         });
-
     }
 }
