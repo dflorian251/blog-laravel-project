@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\User;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -44,6 +44,7 @@ class PostController extends Controller
     }
 
     public function getAdminEdit($id) {
+        Gate::allowIf(fn (User $user) => $user->id === 0, "This operation is unauthorized. Only admin can edit posts."); // Inline authorization
         $post = Post::find($id);
         return view('admin.edit', ['post' => $post, 'postId' => $id]);
     }
