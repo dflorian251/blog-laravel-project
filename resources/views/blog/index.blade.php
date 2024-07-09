@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-@include('layouts.header')
 <!-- Posts Feed -->
 <section class="container mx-auto px-4 mt-8">
     <h2 class="text-2xl font-bold text-gray-800 mb-4">Blog Posts</h2>

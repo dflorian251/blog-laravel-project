@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-@include('layouts.header')
 
 <header class="bg-cover bg-center h-64" style="background-image: url('https://source.unsplash.com/random/1200x400');">
     <div class="flex items-center justify-center h-full bg-gray-900 bg-opacity-50">

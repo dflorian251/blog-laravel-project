@@ -11,4 +11,9 @@ class PostController extends Controller
         $posts = Post::orderBy('created_at', 'desc')->paginate(2);
         return view('blog.index', ['posts' => $posts]);
     }
+
+    public function getPost($id) {
+        $post = Post::find($id);
+        return view('blog.post', ['post' => $post]);
+    }
 }
