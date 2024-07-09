@@ -11,8 +11,8 @@ class Post extends Model
 
     protected $fillable = ['title', 'content'];
 
-    public function tags() {
-        return $this->belongsToMany('App\Models\Tag')->withTimestamps();
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
 }

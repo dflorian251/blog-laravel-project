@@ -17,16 +17,19 @@ class PostSeeder extends Seeder
         DB::table('posts')->insert([
             'title' => Str::random(10),
             'content' => Str::random(25),
+            'user_id' => 1
         ]);
 
         DB::table('posts')->insert([
             'title' =>'Not Random Post',
             'content' => 'If you know you know',
+            'user_id' => 1
         ]);
 
         DB::table('posts')->insert([
             'title' =>'Random Post',
             'content' => Str::random(25),
+            'user_id' => 1
         ]);
     }
 }
