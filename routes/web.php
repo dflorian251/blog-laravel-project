@@ -24,9 +24,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::post('/create', [PostController::class, 'adminCreatePost'])->name('admin.create');
     Route::get('/edit/{id}', [PostController::class, 'getAdminEdit'] )->name('admin.edit');
     Route::post('/edit', [PostController::class, 'adminUpdatePost'])->name('admin.update');
-    Route::post('/delete', )->name('admin.delete');
-
-
+    Route::get('/delete/{id}', [PostController::class, 'adminDeletePost'] )->name('admin.delete');
 });
 
 

@@ -55,4 +55,10 @@ class PostController extends Controller
         $post->save();
         return redirect()->route('admin.index')->with('info', 'Post edited. New title is: ' . $request->input('title'));
     }
+
+    public function adminDeletePost($id) {
+        $post = Post::find($id);
+        $post->delete();
+        return redirect()->route('admin.index')->with('info', 'Post deleted.');
+    }
 }
