@@ -44,7 +44,13 @@ class PostController extends Controller
 
     public function getUserEdit($id) {
         $post = Post::find($id);
-        return view('others.edit', ['post' => $post, 'postId' => $id]);
+        $response = Gate::inspect('update', $post);
+        if ($response->allowed()) {
+            return view('others.edit', ['post' => $post, 'postId' => $id]);
+        } else {
+            echo $response->message();
+        }
+
     }
 
     public function userUpdatePost(Request $request) {
@@ -53,17 +59,27 @@ class PostController extends Controller
             'content' => 'required|min:5'
         ]);
         $post = Post::find($request->input('id'));
-        $post->title = $request->input('title');
-        $post->content = $request->input('content');
-        $post->save();
-        return redirect()->route('dashboard')->with('info', 'Post edited. New title is: ' . $request->input('title'));
+        $response = Gate::inspect('update', $post);
+        if ($response->allowed()) {
+            $post->title = $request->input('title');
+            $post->content = $request->input('content');
+            $post->save();
+            return redirect()->route('dashboard')->with('info', 'Post edited. New title is: ' . $request->input('title'));
+        } else {
+            echo $response->message();
+        }
+
     }
 
     public function userDeletePost($id) {
-        // $response = Gate::inspect('admin-portal', Auth::user());
         $post = Post::find($id);
-        $post->delete();
-        return redirect()->route('dashboard')->with('info', 'Post deleted.');
+        $response = Gate::inspect('delete', $post);
+        if ($response->allowed()) {
+            $post->delete();
+            return redirect()->route('dashboard')->with('info', 'Post deleted.');
+        }  else {
+            echo $response->message();
+        }
     }
 
     public function getAdminIndex() {

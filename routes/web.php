@@ -24,7 +24,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('/edit/{id}', [PostController::class, 'getAdminEdit'] )->name('admin.edit');
     Route::post('/edit', [PostController::class, 'adminUpdatePost'])->name('admin.update');
     Route::get('/delete/{id}', [PostController::class, 'adminDeletePost'] )->name('admin.delete');
-});
+})->middleware('auth');
 
 Route::middleware('auth')->group(function() {
     Route::post('/create', [PostController::class, 'userCreatePost'])->name('user.create');
