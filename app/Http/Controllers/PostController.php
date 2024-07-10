@@ -28,7 +28,7 @@ class PostController extends Controller
         return view('dashboard', ['posts' => $posts]);
     }
 
-    public function createPost(Request $request) {
+    public function userCreatePost(Request $request) {
         $validated = $request->validate([
             'title' => 'required|max:25',
             'content' => 'required|min:5'
@@ -40,6 +40,23 @@ class PostController extends Controller
         ]);
         $post->save();
         return redirect()->route('dashboard')->with('info', 'Post created. Title is: ' . $request->input('title'));
+    }
+
+    public function getUserEdit($id) {
+        $post = Post::find($id);
+        return view('others.edit', ['post' => $post, 'postId' => $id]);
+    }
+
+    public function userUpdatePost(Request $request) {
+        $validated = $request->validate([
+            'title' => 'required|max:25',
+            'content' => 'required|min:5'
+        ]);
+        $post = Post::find($request->input('id'));
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->save();
+        return redirect()->route('dashboard')->with('info', 'Post edited. New title is: ' . $request->input('title'));
     }
 
     public function getAdminIndex() {

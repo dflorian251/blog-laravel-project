@@ -27,7 +27,9 @@ Route::group(['prefix' => 'admin'], function() {
 });
 
 Route::middleware('auth')->group(function() {
-    Route::post('/create', [PostController::class, 'createPost'])->name('user.create');
+    Route::post('/create', [PostController::class, 'userCreatePost'])->name('user.create');
+    Route::get('/dashboard/edit/{id}', [PostController::class, 'getUserEdit'])->name('user.edit');
+    Route::post('/dashboard/edit', [PostController::class, 'userUpdatePost'])->name('user.update');
 });
 
 
