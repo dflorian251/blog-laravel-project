@@ -26,5 +26,9 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('/delete/{id}', [PostController::class, 'adminDeletePost'] )->name('admin.delete');
 });
 
+Route::middleware('auth')->group(function() {
+    Route::post('/create', [PostController::class, 'createPost'])->name('user.create');
+});
+
 
 require __DIR__.'/auth.php';

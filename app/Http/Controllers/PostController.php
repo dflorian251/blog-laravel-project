@@ -18,14 +18,28 @@ class PostController extends Controller
         return view('blog.index', ['posts' => $posts]);
     }
 
+    public function getPost($id) {
+        $post = Post::find($id);
+        return view('blog.post', ['post' => $post]);
+    }
+
     public function getDashboard() {
         $posts = Post::where('user_id', '=' ,Auth::user()->id) ->orderBy('created_at', 'desc')->get();
         return view('dashboard', ['posts' => $posts]);
     }
 
-    public function getPost($id) {
-        $post = Post::find($id);
-        return view('blog.post', ['post' => $post]);
+    public function createPost(Request $request) {
+        $validated = $request->validate([
+            'title' => 'required|max:25',
+            'content' => 'required|min:5'
+        ]);
+        $post = new Post([
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+            'user_id' => Auth::user()->id
+        ]);
+        $post->save();
+        return redirect()->route('dashboard')->with('info', 'Post created. Title is: ' . $request->input('title'));
     }
 
     public function getAdminIndex() {
