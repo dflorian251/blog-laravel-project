@@ -6,32 +6,35 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
                 {{ __("You're logged in!") }}
+                <br>
+                @if(Session::has('info'))
+                <div class="mb-4">
+                    <div class="w-full">
+                        <p class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative">{{ Session::get('info') }}</p>
+                    </div>
+                </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                        <ul class="list-disc pl-5">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
 </div>
 
+
 <div class="py-12 bg-gray-100">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white p-8 rounded-lg shadow-md overflow-hidden sm:rounded-lg">
             <h2 class="text-2xl font-bold mb-6">Create New Post</h2>
-            @if(Session::has('info'))
-            <div class="mb-4">
-                <div class="w-full">
-                    <p class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative">{{ Session::get('info') }}</p>
-                </div>
-            </div>
-            @endif
 
-            @if ($errors->any())
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
-                    <ul class="list-disc pl-5">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
 
             <form action="{{ route('user.create') }}" method="post">
                 <div class="mb-4">
@@ -69,9 +72,8 @@
                     <div class="w-full">
                         <p>
                             <strong>{{ $post->title }}</strong>
-                            {{-- {{ route('admin.edit', ['id' => $post->id]) }} --}}
                             <a href="{{ route('user.edit', ['id' => $post->id]) }}" class="text-blue-500 hover:underline">Edit</a>
-                            <a href="" class="text-red-500 hover:underline">Delete</a>
+                            <a href="{{ route('user.delete', ['id' => $post->id]) }}" class="text-red-500 hover:underline">Delete</a>
                         </p>
                     </div>
                 </div>

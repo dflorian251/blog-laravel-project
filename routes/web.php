@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function() {
     Route::post('/create', [PostController::class, 'userCreatePost'])->name('user.create');
     Route::get('/dashboard/edit/{id}', [PostController::class, 'getUserEdit'])->name('user.edit');
     Route::post('/dashboard/edit', [PostController::class, 'userUpdatePost'])->name('user.update');
+    Route::get('/dashboard/delete/{id}', [PostController::class, 'userDeletePost'])->name('user.delete');
 });
 
 

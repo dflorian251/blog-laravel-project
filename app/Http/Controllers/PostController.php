@@ -59,6 +59,13 @@ class PostController extends Controller
         return redirect()->route('dashboard')->with('info', 'Post edited. New title is: ' . $request->input('title'));
     }
 
+    public function userDeletePost($id) {
+        // $response = Gate::inspect('admin-portal', Auth::user());
+        $post = Post::find($id);
+        $post->delete();
+        return redirect()->route('dashboard')->with('info', 'Post deleted.');
+    }
+
     public function getAdminIndex() {
         $response = Gate::inspect('admin-portal');
         if ($response->allowed()) {
